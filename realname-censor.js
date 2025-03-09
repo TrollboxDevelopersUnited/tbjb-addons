@@ -1,5 +1,3 @@
-addons.register('messageReciever', function(data) {
-
 let bannedwords = ["ilya", "Ilya", "ILYA", "zelenevsky", "Zelenevsky", "ZELENEVSKY", "timofey", "Timofey", "TIMOFEY", "piskov", "Piskov", "PISKOV"]
 
 function censorRealNames(text) {
@@ -18,5 +16,10 @@ function escapeRegExp(str) {
 	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+addons.register('messageReciever', function(data) {
 	data.msg = censorRealNames(data.msg)
+	data.nick = censorRealNames(data.nick)
 })
+addons.register('userListener', function(action, data) {
+	data.nick = censorRealNames(data.nick)
+});
